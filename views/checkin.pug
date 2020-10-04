@@ -1,0 +1,43 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h2= title
+					if (loanid && isbn && checkinCompleted == 1)
+						p Book checkin completed for book with ISBN #{isbn} and loan ID #{loanid}.
+					else if (loanid && isbn && checkinCompleted == 0)
+						p Book checkin failed.
+					else
+						p This is the book checkin section.
+						p Please search for the book you want to check in or search for your card number information.
+						form(method='POST' action='')
+							.form-group
+								label(for='checkin')
+								input.form-control(type='text' name='checkinInput' id='checkinInput' required)
+							button.btn.btn-primary(type='submit') Search
+						if (checkinData)
+							// Render search data
+							if (checkinData == undefined || checkinData.length == 0)
+								p No entries found.
+							else
+								p Please click on the ISBN number of the entry you want to check in.
+								br
+								table.table
+									tr
+										th Loan ID
+										th ISBN
+										th Book title
+										th Borrower name
+									tbody
+										- for (var n = 1; n <= checkinData.length; n++)
+											tr
+												td #{checkinData[n-1].Loan_id}
+												td 
+													a(href="/checkin/?loanid=" + checkinData[n-1].Loan_id + "&isbn=" + checkinData[n-1].ISBN) #{checkinData[n-1].ISBN}
+												td #{checkinData[n-1].Title}
+												td #{checkinData[n-1].Bname}
+				.col-sm-2.sidenav.text-center

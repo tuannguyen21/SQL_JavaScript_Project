@@ -1,0 +1,58 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h2= title
+					if (cardid && finesCompleted == 1)
+						p Fines update completed for borrower with card ID #{cardid}.
+					else if (cardid && finesCompleted == 0)
+						p Fines update failed.
+					else
+						p Process fines here.
+						form(method='POST' action='')
+							button.btn.btn-primary(name='finesUpdate' value='finesUpdate' type='submit') Update Fines
+						if (updateError)
+							br
+							p Some other error has occured. Please try again.
+						if (!updateError && updateResult)
+							br
+							p Fines update completed.
+						br
+						p If you want to search and enter payment of fines, use the search function below.
+						form(method='POST' action='')
+							.form-group
+								.checkbox
+									label(for='finesInputPaid')
+											input(type='checkbox' name='finesInputPaid' value='finesInputPaid')
+											| Filter out previously paid fines
+							button.btn.btn-primary(type='submit' name='finesInput' value='finesInput') Search
+						if (finesData)
+							// Render search data
+							if (finesData == undefined || finesData.length == 0)
+								p No entries found.
+							else
+								br
+								table.table
+									tr
+										th Card number
+										th Fine amount
+										th Paid
+									tbody
+										- for (var n = 1; n <= finesData.length; n++)
+											tr
+												td
+													if (finesData[n-1].Paid == 0 || finesData[n-1].Paid == false)
+														a(href="/fines/?cardid=" + finesData[n-1].Card_id) #{finesData[n-1].Card_id}
+													else
+														| #{finesData[n-1].Card_id}
+												td #{finesData[n-1].Fine_amt}
+												td
+													if (finesData[n-1].Paid == 0 || finesData[n-1].Paid == false)
+														| False
+													else
+														| True
+				.col-sm-2.sidenav.text-center

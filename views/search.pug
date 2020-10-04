@@ -1,0 +1,39 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h2= title
+					p Search for books here.
+					form(method='POST' action='')
+						.form-group
+							label(for='searchInput')
+							input.form-control(type='text' name='searchInput' id='searchInput' required)
+						button.btn.btn-primary(type='submit') Search
+					if (searchData)
+						// Render search data
+						if (searchData == undefined || searchData.length == 0)
+							p No entries found.
+						else
+							br
+							table.table
+								tr
+									th ISBN
+									th Book title
+									th Book author(s)
+									th Book availability
+								tbody
+									- for (var n = 1; n <= searchData.length; n++)
+										tr
+											td #{searchData[n-1].ISBN}
+											td
+												if (searchData[n-1].Availability == 'Yes' || searchData[n-1].Availability == false)
+													a(href="/checkout/?isbn=" + searchData[n-1].ISBN) #{searchData[n-1].Title}
+												else
+													| #{searchData[n-1].Title}
+											td #{searchData[n-1].Name}
+											td #{searchData[n-1].Availability}
+				.col-sm-2.sidenav.text-center

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h1= message
+					p= error.status
+					pre #{error.stack}
+				.col-sm-2.sidenav.text-center

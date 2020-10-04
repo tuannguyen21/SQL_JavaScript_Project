@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+	head
+		title= title
+		meta(charset='utf-8')
+		meta(name='description' content='Database Project')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		header
+			.container-fluid
+				h1 Database Project
+				p
+				| Welcome.
+			nav.navbar.navbar-inverse
+				.container-fluid
+					.navbar-header
+						a.navbar-brand(href='/') Project
+					ul.nav.navbar-nav
+						li
+							a(href='/') Home
+						li
+							a(href='/search') Search
+						li
+							a(href='/checkout') Checkout
+						li
+							a(href='/checkin') Checkin
+						li
+							a(href='/borrower') Borrower Management
+						li
+							a(href='/fines') Fines
+		block content
+		footer
+			.container-fluid.text-center
+				p All rights reserved.

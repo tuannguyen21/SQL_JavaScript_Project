@@ -1,0 +1,65 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h2= title
+					p Register a new borrower here.
+					if (error)					
+						form(method='POST' action='')
+							.form-group
+								ul
+									li
+										label(for='borrowerName') Name:
+										input.form-control.is-invalid(type='text' name='borrowerName' id='borrowerName' required)
+									br
+									li
+										label(for='borrowerSSN') SSN:
+										input.form-control.is-invalid(type='text' name='borrowerSSN' id='borrowerSSN' required)
+									br
+									li 
+										label(for='borrowerAddress') Address:
+										input.form-control.is-invalid(type='text' name='borrowerAddress' id='borrowerAddress' required)
+									br
+									li
+										label(for='borrowerPhone') Phone:
+										input.form-control.is-invalid(type='tel' name='borrowerPhone' id='borrowerPhone')
+									br
+									if (error == 1)
+										div.invalid-feedback
+											| A borrower with the same SSN already exists in the system.
+									if (error == 2)
+										div.invalid-feedback
+											| Invalid SSN format. Please try again.
+									if (error == 3)
+										div.invalid-feedback
+											| Some other error has occured. Please try again.
+							button.btn.btn-primary(type='submit') Register
+					else
+						form(method='POST' action='')
+							.form-group
+								ul
+									li
+										label(for='borrowerName') Name:
+										input.form-control(type='text' name='borrowerName' id='borrowerName' required)
+									br
+									li
+										label(for='borrowerSSN') SSN:
+										input.form-control(type='text' name='borrowerSSN' id='borrowerSSN' required)
+									br
+									li
+										label(for='borrowerAddress') Address:
+										input.form-control(type='text' name='borrowerAddress' id='borrowerAddress' required)
+									br
+									li
+										label(for='borrowerPhone') Phone:
+										input.form-control(type='tel' name='borrowerPhone' id='borrowerPhone')
+									br
+							button.btn.btn-primary(type='submit') Register
+					if (!error && result)
+						br
+						p Registration completed.
+				.col-sm-2.sidenav.text-center

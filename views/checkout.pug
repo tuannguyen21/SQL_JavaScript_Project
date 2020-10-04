@@ -1,0 +1,41 @@
+extends layout
+
+block content
+	main
+		.container-fluid
+			.row.content
+				.col-sm-2.sidenav.text-center
+				.col-sm-8
+					h2= title
+					if (isbn && cardID && error)
+						p Transaction failed.
+						if (error == 1)
+							// Invalid borrower ID
+							p The card ID is invalid. Please try again.
+						else if (error == 2)
+							// Number of book loans exceeded
+							p This user has already borrowed 3 books and has reached the limit.
+						else if (error == 3)
+							// Book has already been borrowed
+							p This book has already been borrowed. Please try again.
+						else
+							// Other errors
+							p Some other error has occured. Please try again.
+					else if (isbn && cardID && !error)
+						p Transaction completed.
+						p The book with ISBN #{isbn} has successfully been borrowed by user with card ID #{cardID}.
+					else if (isbn)
+						p This is the book checkout section.
+						form(method='POST' action='')
+							.form-group
+								p Please enter your card ID below to borrow the book with ISBN #{isbn}:
+								label(for='cardID')
+								input.form-control(type='text' name='cardID' id='cardID' required)
+							button.btn.btn-primary(type='submit') Borrow Book
+					else
+						p This is the book checkout section.
+						p
+						| Please search for a book using the 
+						a(href="/search") Search
+						|  menu.
+				.col-sm-2.sidenav.text-center
